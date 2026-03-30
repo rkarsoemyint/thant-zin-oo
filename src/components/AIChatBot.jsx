@@ -4,8 +4,9 @@ import { Bot, X, MessageSquare, Send, MessageCircleCode, ChevronDown, SendHorizo
 import Groq from "groq-sdk";
 
 
+const apiKey = import.meta.env.VITE_GROQ_API_KEY;
 const groq = new Groq({ 
-  apiKey: "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",
+  apiKey: apiKey, 
   dangerouslyAllowBrowser: true 
 });
 
