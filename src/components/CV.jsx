@@ -61,15 +61,41 @@ const CV = () => {
 
             <div className="space-y-8">
               {/* Contact Section */}
-              <section>
-                <h5 className="text-xs uppercase border-b border-gray-700 pb-2 mb-4 font-bold tracking-widest text-gray-400">Contact</h5>
-                <ul className="space-y-4 text-sm">
-                  <li className="flex items-center gap-3"><SafeIcon name="Phone" size={16} className="text-cyan-400"/> {data?.phone || "09 792460282"}</li>
-                  <li className="flex items-center gap-3"><SafeIcon name="Mail" size={16} className="text-cyan-400"/> {data?.email || "tzoo2024@gmail.com"}</li>
-                  <li className="flex items-center gap-3"><SafeIcon name="MapPin" size={16} className="text-cyan-400"/> Yangon, Myanmar</li>
-                  <li className="flex items-center gap-3"><SafeIcon name="Github" size={16} className="text-cyan-400"/> {data?.github || "github.com/rkarsoemyint"}</li>
-                </ul>
-              </section>
+<section>
+  <h5 className="text-xs uppercase border-b border-gray-700 pb-2 mb-4 font-bold tracking-widest text-gray-400">Contact</h5>
+  <ul className="space-y-3 text-sm">
+    <li className="flex items-start gap-3">
+      <SafeIcon name="Phone" size={16} className="text-cyan-400 mt-0.5 shrink-0"/> 
+      <span>{data?.phone || "09 792460282"}</span>
+    </li>
+    <li className="flex items-start gap-3">
+      <SafeIcon name="Mail" size={16} className="text-cyan-400 mt-0.5 shrink-0"/> 
+      <span className="break-all">{data?.email || "tzoo2024@gmail.com"}</span>
+    </li>
+    <li className="flex items-start gap-3">
+      <SafeIcon name="MapPin" size={16} className="text-cyan-400 mt-0.5 shrink-0"/> 
+      <span className="text-xs leading-relaxed">8-B, Yuzana Garden City, Dagon Seikkan Township, Yangon</span>
+    </li>
+    <li className="flex items-start gap-3">
+      <SafeIcon name="Github" size={16} className="text-cyan-400 mt-0.5 shrink-0"/> 
+      <span className="break-all">{data?.github || "github.com/rkarsoemyint"}</span>
+    </li>
+  </ul>
+</section>
+
+{/* Personal Details Section */}
+<section>
+  <h5 className="text-xs uppercase border-b border-gray-700 pb-2 mb-4 font-bold tracking-widest text-gray-400">Personal Details</h5>
+  <ul className="space-y-3 text-[13px]">
+    <li className="flex justify-between"><span className="text-gray-400">DOB:</span> <span>12. Jul. 1990</span></li>
+    <li className="flex justify-between"><span className="text-gray-400">Gender:</span> <span>Male</span></li>
+    <li className="flex justify-between"><span className="text-gray-400">Height:</span> <span>170.18 cm</span></li>
+    <li className="flex justify-between"><span className="text-gray-400">Weight:</span> <span>72.5 Kg</span></li>
+    <li className="flex justify-between"><span className="text-gray-400">Marital Status:</span> <span>Single</span></li>
+    <li className="flex justify-between"><span className="text-gray-400">Religion:</span> <span>Buddhist</span></li>
+    <li className="flex justify-between"><span className="text-gray-400">Nationality:</span> <span>Myanmar</span></li>
+  </ul>
+</section>
 
               {/* Education Section */}
              
