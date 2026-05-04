@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
 import { LayoutDashboard, User, FileText, BarChart3, LogOut, Menu, X } from 'lucide-react';
-import AdminPanel from '../AdminPanel';
+import ProjectManager from './ProjectManager';
 import SkillsManager from "./SkillsManager";
 import AboutManager from "./AboutManager";
 import CVManager from "./CVManager";
@@ -87,7 +87,7 @@ const Dashboard = () => {
         {/* Management Components - Responsive Container */}
         <div className="max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="bg-white dark:bg-gray-900/50 rounded-3xl border border-gray-200 dark:border-gray-800 p-2 md:p-6 shadow-sm">
-            {activeTab === 'projects' && <AdminPanel />}
+            {activeTab === 'projects' && <ProjectManager />}
             {activeTab === 'skills' && <SkillsManager />}
             {activeTab === 'about' && <AboutManager />}
             {activeTab === 'cv' && <CVManager />}
