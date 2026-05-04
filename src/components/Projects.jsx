@@ -54,10 +54,9 @@ const Projects = () => {
           {filteredProjects.map((project) => (
             <div key={project.id} className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
               <img 
-                // project.image နေရာမှာ project.imageUrl လို့ ပြောင်းလိုက်ပါတယ်
-                src={project.imageUrl || "https://via.placeholder.com/400x250?text=No+Image"} 
-                alt={project.title} 
-                className="w-full h-48 object-cover"
+                src={project.imageUrl || project.image || "https://via.placeholder.com/400x250?text=No+Image"} 
+  alt={project.title} 
+  className="w-full h-48 object-cover"
               />
               <div className="p-6 flex flex-col flex-grow">
                 <span className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2">{project.category}</span>
