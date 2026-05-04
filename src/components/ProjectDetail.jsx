@@ -45,9 +45,9 @@ const ProjectDetail = () => {
         
         <div className="rounded-2xl overflow-hidden shadow-xl mb-10 border border-gray-100 dark:border-gray-800">
           <img 
-            src={project.image && project.image.startsWith('http') ? project.image : "https://via.placeholder.com/800x450?text=No+Image+Found"} 
-            alt={project.title} 
-            className="w-full h-auto object-cover"
+            src={project.imageUrl && project.imageUrl.startsWith('http') ? project.imageUrl : "https://via.placeholder.com/800x450?text=No+Image+Found"} 
+    alt={project.title} 
+    className="w-full h-auto object-cover"
           />
         </div>
 
