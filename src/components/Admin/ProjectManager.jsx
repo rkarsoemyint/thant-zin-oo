@@ -50,7 +50,7 @@ const ProjectManager = () => {
           <select className="w-full p-2 bg-gray-900 border border-gray-700 rounded text-white" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})}>
             <option value="Web Design">Web Design</option>
             <option value="React & Node">React & Node</option>
-            <option value="Animation">Animation</option>
+            <option value="Next.js">Next.js</option>
           </select>
           <textarea placeholder="Description" className="w-full p-2 bg-gray-900 border border-gray-700 rounded text-white" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} required />
           <input type="text" placeholder="Tech Stack (React, CSS)" className="w-full p-2 bg-gray-900 border border-gray-700 rounded text-white" value={formData.techStack} onChange={e => setFormData({...formData, techStack: e.target.value})} />
