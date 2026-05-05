@@ -1,71 +1,118 @@
-import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase';
-import { collection, onSnapshot, query, orderBy, deleteDoc, doc } from 'firebase/firestore';
-import { Trash2, User, Mail, Calendar, MessageSquare } from 'lucide-react';
+import React, { useState } from 'react';
+import { auth } from '../../firebase';
+import { signOut } from 'firebase/auth';
+import { 
+  LayoutDashboard, 
+  User, 
+  FileText, 
+  BarChart3, 
+  LogOut, 
+  Menu, 
+  X, 
+  Mail 
+} from 'lucide-react';
+import ProjectManager from './ProjectManager';
+import SkillsManager from "./SkillsManager";
+import AboutManager from "./AboutManager";
+import CVManager from "./CVManager";
+import MessageManager from './MessageManager';
 
-const MessageManager = () => {
-  const [messages, setMessages] = useState([]);
+const Dashboard = () => {
+  const [activeTab, setActiveTab] = useState('projects');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setMessages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const deleteMessage = async (id) => {
-    if (window.confirm("ဒီ Message ကို ဖျက်မှာ သေချာပါသလား?")) {
-      try {
-        await deleteDoc(doc(db, "messages", id));
-      } catch (error) {
-        console.error("Error deleting message:", error);
-      }
-    }
+  const handleLogout = () => {
+    signOut(auth);
   };
 
+  const navItems = [
+    { id: 'projects', label: 'Projects', icon: <LayoutDashboard size={20} /> },
+    { id: 'skills', label: 'Skills', icon: <BarChart3 size={20} /> },
+    { id: 'about', label: 'About Me', icon: <User size={20} /> },
+    { id: 'cv', label: 'CV Details', icon: <FileText size={20} /> },
+    { id: 'messages', label: 'Messages', icon: <Mail size={20} /> },
+  ];
+
   return (
-    <div className="space-y-6">
-      <div className="grid gap-6">
-        {messages.length === 0 ? (
-          <div className="text-center py-20 text-gray-500">Message မရှိသေးပါဘူးဗျ။</div>
-        ) : (
-          messages.map((msg) => (
-            <div key={msg.id} className="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all">
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex gap-4">
-                  <div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600">
-                    <User size={24} />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg dark:text-white">{msg.name}</h3>
-                    <p className="text-gray-500 text-sm flex items-center gap-2">
-                      <Mail size={14} /> {msg.email}
-                    </p>
-                  </div>
-                </div>
-                <button onClick={() => deleteMessage(msg.id)} className="text-red-400 hover:text-red-600 p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all">
-                  <Trash2 size={20} />
-                </button>
-              </div>
-
-              <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl mb-4 border border-gray-100 dark:border-gray-800">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed italic">
-                  <MessageSquare size={16} className="inline mr-2 text-blue-500" />
-                  "{msg.message}"
-                </p>
-              </div>
-
-              <div className="text-[10px] uppercase tracking-widest text-gray-400 flex items-center gap-2">
-                <Calendar size={12} />
-                {msg.createdAt?.toDate ? msg.createdAt.toDate().toLocaleString() : "Just now"}
-              </div>
-            </div>
-          ))
-        )}
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50 dark:bg-gray-950">
+      
+      
+      <div className="md:hidden flex items-center justify-between p-4 bg-gray-900 text-white shadow-lg z-[60]">
+        <h2 className="text-xl font-bold text-blue-400">Admin Hub</h2>
+        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 hover:bg-gray-800 rounded-lg">
+          {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+
+     
+      <aside className={`
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+        md:translate-x-0 fixed md:relative w-72 h-full md:h-auto min-h-screen 
+        bg-gray-900 text-white p-6 flex flex-col shadow-2xl z-50 transition-transform duration-300 ease-in-out
+      `}>
+        <h2 className="hidden md:block text-2xl font-bold border-b border-gray-700 pb-4 text-blue-400 italic mb-8">
+          Admin Hub
+        </h2>
+        
+        <nav className="flex-1 space-y-2">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => {
+                setActiveTab(item.id);
+                setIsSidebarOpen(false);
+              }}
+              className={`flex items-center gap-3 w-full text-left p-4 rounded-xl transition-all duration-200 ${
+                activeTab === item.id 
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' 
+                : 'hover:bg-gray-800 text-gray-400'
+              }`}
+            >
+              {item.icon}
+              <span className="font-medium">{item.label}</span>
+            </button>
+          ))}
+        </nav>
+
+        <button 
+          onClick={handleLogout} 
+          className="mt-10 bg-red-600/10 text-red-500 border border-red-600/30 p-4 rounded-xl hover:bg-red-600 hover:text-white transition-all font-bold flex items-center justify-center gap-2"
+        >
+          <LogOut size={20} /> Logout
+        </button>
+      </aside>
+
+    
+      <main className="flex-1 min-h-screen overflow-y-auto bg-gray-50 dark:bg-gray-950 p-4 md:p-10">
+        
+        
+        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b border-gray-200 dark:border-gray-800 pb-6">
+          <div>
+            <h1 className="text-3xl font-extrabold text-gray-800 dark:text-white capitalize tracking-tight flex items-center gap-2">
+              {activeTab} <span className="text-blue-600 text-sm font-medium bg-blue-100 dark:bg-blue-900/30 px-3 py-1 rounded-full">Manager</span>
+            </h1>
+            <p className="text-gray-500 text-sm mt-1">Manage your website content dynamically.</p>
+          </div>
+          
+          <div className="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-xl text-xs font-mono text-gray-500 border border-gray-200 dark:border-gray-700">
+             Admin: {auth.currentUser?.email}
+          </div>
+        </header>
+
+        {/* Content Container */}
+        <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="bg-white dark:bg-gray-900/50 rounded-3xl border border-gray-200 dark:border-gray-800 p-2 md:p-6 shadow-sm">
+            {activeTab === 'projects' && <ProjectManager />}
+            {activeTab === 'skills' && <SkillsManager />}
+            {activeTab === 'about' && <AboutManager />}
+            {activeTab === 'cv' && <CVManager />}
+            {activeTab === 'messages' && <MessageManager />}
+          </div>
+        </div>
+      </main>
+
     </div>
   );
 };
 
-export default MessageManager;
+export default Dashboard;
