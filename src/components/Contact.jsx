@@ -1,25 +1,25 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import * as Icons from 'lucide-react';
+import { db } from '../firebase'; 
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const Contact = () => {
   const form = useRef();
   const [isSending, setIsSending] = useState(false);
 
   const validateEmail = (email) => {
-    
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return re.test(String(email).toLowerCase());
   };
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form.current);
     const userName = formData.get('name').trim();
     const userEmail = formData.get('email').trim();
     const userMessage = formData.get('message').trim();
-
     if (userName.length < 3) {
       alert("ကျေးဇူးပြု၍ နာမည်အမှန် (အနည်းဆုံး ၃ လုံး) ရိုက်ထည့်ပေးပါဗျာ။");
       return;
@@ -37,20 +37,31 @@ const Contact = () => {
 
     setIsSending(true);
 
-    emailjs.sendForm(
-      'service_fwr5cgf',
-      'template_z4mujig',
-      form.current,
-      'JUbANX8zcl-N1inTc'
-    )
-    .then((result) => {
-        alert("Message sent successfully! ✅ အစ်ကို့ Gmail ထဲကို စာရောက်သွားပါပြီ။");
-        form.current.reset(); 
-    }, (error) => {
-        alert("Failed to send message. ❌ စနစ်ချို့ယွင်းမှု ဖြစ်နေပါတယ်။");
-        console.log(error.text);
-    })
-    .finally(() => setIsSending(false));
+    try {
+      
+      await addDoc(collection(db, "messages"), {
+        name: userName,
+        email: userEmail,
+        message: userMessage,
+        createdAt: serverTimestamp(),
+      });
+
+    
+      await emailjs.sendForm(
+        'service_fwr5cgf',
+        'template_z4mujig',
+        form.current,
+        'JUbANX8zcl-N1inTc'
+      );
+
+      alert("Message sent successfully! ✅ အစ်ကို့ Admin Hub ရော Gmail ထဲကိုပါ စာရောက်သွားပါပြီ။");
+      form.current.reset(); 
+    } catch (error) {
+      console.error("Submission Error:", error);
+      alert("Failed to send message. ❌ စနစ်ချို့ယွင်းမှု ဖြစ်နေပါတယ်။");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -60,20 +71,19 @@ const Contact = () => {
           Get In Touch
         </h2>
         
-       
         <div className="grid md:grid-cols-2 gap-12 items-start">
           
-          {/* ဘယ်ဘက်ခြမ်း: Contact Info */}
+          
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-semibold mb-4 text-white">Let's collaborate!</h3>
               <p className="text-gray-400 leading-relaxed">
-                "Whether you'd like to discuss a project, explore potential collaborations, or have a professional inquiry, feel free to reach out. Let’s build something great together! I’ll get back to you as soon as possible."
+                "Whether you'd like to discuss a project, explore potential collaborations, or have a professional inquiry, feel free to reach out. Let’s build something great together!"
               </p>
             </div>
 
             <div className="space-y-4">
-              {/* Email Card */}
+              
               <div className="flex items-center gap-4 bg-gray-900/50 p-4 rounded-2xl border border-gray-800 hover:border-cyan-500/50 transition-colors">
                 <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400">
                   <Icons.Mail size={24} />
@@ -84,7 +94,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Phone Card */}
+              
               <div className="flex items-center gap-4 bg-gray-900/50 p-4 rounded-2xl border border-gray-800 hover:border-green-500/50 transition-colors">
                 <div className="p-3 bg-green-500/10 rounded-xl text-green-400">
                   <Icons.Phone size={24} />
@@ -95,7 +105,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Location Card */}
+              
               <div className="flex items-center gap-4 bg-gray-900/50 p-4 rounded-2xl border border-gray-800 hover:border-red-500/50 transition-colors">
                 <div className="p-3 bg-red-500/10 rounded-xl text-red-400">
                   <Icons.MapPin size={24} />
@@ -108,7 +118,7 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* ညာဘက်ခြမ်း: Contact Form */}
+          
           <form 
             ref={form} 
             onSubmit={sendEmail} 
@@ -176,4 +186,5 @@ const Contact = () => {
     </section>
   );
 };
+
 export default Contact;
