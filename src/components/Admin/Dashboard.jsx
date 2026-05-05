@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
-import { LayoutDashboard, User, FileText, BarChart3, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, User, FileText, BarChart3, LogOut, Menu, X, Mail } from 'lucide-react';
 import ProjectManager from './ProjectManager';
 import SkillsManager from "./SkillsManager";
 import AboutManager from "./AboutManager";
