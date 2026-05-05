@@ -6,6 +6,7 @@ import ProjectManager from './ProjectManager';
 import SkillsManager from "./SkillsManager";
 import AboutManager from "./AboutManager";
 import CVManager from "./CVManager";
+import MessageManager from './MessageManager';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('projects');
@@ -20,6 +21,7 @@ const Dashboard = () => {
     { id: 'skills', label: 'Skills', icon: <BarChart3 size={20} /> },
     { id: 'about', label: 'About Me', icon: <User size={20} /> },
     { id: 'cv', label: 'CV Details', icon: <FileText size={20} /> },
+    { id: 'messages', label: 'Messages', icon: <Mail size={20} /> },
   ];
 
   return (
@@ -91,6 +93,7 @@ const Dashboard = () => {
             {activeTab === 'skills' && <SkillsManager />}
             {activeTab === 'about' && <AboutManager />}
             {activeTab === 'cv' && <CVManager />}
+            {activeTab === 'messages' && <MessageManager />}
           </div>
         </div>
       </main>
