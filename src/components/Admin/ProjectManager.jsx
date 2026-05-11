@@ -100,7 +100,7 @@ const ProjectManager = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input type="text" placeholder="Project Title" className="w-full p-2 bg-gray-900 border border-gray-700 rounded text-white outline-none focus:border-blue-500" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required />
             
-            {/* ပြုပြင်လိုက်သော select options များ */}
+           
             <select className="w-full p-2 bg-gray-900 border border-gray-700 rounded text-white outline-none focus:border-blue-500" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})}>
               <option value="Web Design">Web Design</option>
               <option value="React & Node">React & Node</option>
