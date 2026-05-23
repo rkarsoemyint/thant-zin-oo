@@ -50,7 +50,7 @@ const AdminPanel = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("ဒီပရောဂျက်ကို ဖျက်မှာ သေချာပါသလား?")) {
+    if (window.confirm("Are you sure to delete this project?")) {
       try {
         await deleteDoc(doc(db, "projects", id));
         fetchProjects();
@@ -102,7 +102,7 @@ const AdminPanel = () => {
         </form>
       </div>
 
-      {/* --- LIST SECTION (ဖျက်ဖို့နေရာ) --- */}
+      {/* --- LIST SECTION --- */}
       <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-xl">
         <div className="p-4 border-b border-gray-700 bg-gray-800/50 flex items-center gap-2 font-bold text-gray-200">
           <Icons.List size={20} className="text-blue-400" /> Existing Projects ({projects.length})
