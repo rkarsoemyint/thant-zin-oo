@@ -70,7 +70,7 @@ const ProjectManager = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("ဖျက်မှာ သေချာပါသလား?")) {
+    if (window.confirm("Are you sure to delete?")) {
       await deleteDoc(doc(db, "projects", id));
       fetchProjects();
     }
