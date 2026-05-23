@@ -19,7 +19,6 @@ const AIChatBot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef(null);
 
-  // စာရိုက်တိုင်း အောက်ဆုံးကို auto scroll ဆင်းဖို့ပါ
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -42,9 +41,9 @@ const AIChatBot = () => {
             content: `မင်းက Thant Zin Oo ရဲ့ Portfolio အတွက် AI Assistant ဖြစ်တယ်။ 
             သူ့အကြောင်း အချက်အလက်တွေကတော့:
             - နာမည်: သန့်ဇင်ဦး (Thant Zin Oo)၊ Web Engineer တစ်ယောက်ဖြစ်တယ်။
-            - ပညာအရည်အချင်း: M.Sc. in Animation (AAFT, India) ဘွဲ့ရထားတယ်။
-            - ကျွမ်းကျင်မှု: Python (Django), JavaScript (React, Node.js), PHP, Firebase, Tailwind CSS.
-            - Projects: UkeLearn (Ukelele သင်ကြားရေး App), Wallet Flow (PWA Expense Tracker).
+            - ပညာအရည်အချင်း: M.Sc. in Animation (AAFT, India) မှာတက်ရောက် ပညာသင်ဘူးတယ်။
+            - ကျွမ်းကျင်မှု: Python (Django), Mongo DB, Express, React, Node.js ( MERN Stack), PHP, Firebase, Tailwind CSS.
+            - Projects: MERN Stack Projects, Full Stack Projects, Frontend Projects, Backend Project, Web Design Projects.
             - မေးခွန်းတွေကို ယဉ်ကျေးပျူငှာစွာ မြန်မာလို (သို့မဟုတ်) အင်္ဂလိပ်လို ဖြေကြားပေးပါ။`
           },
           ...messages.map(m => ({
@@ -53,7 +52,7 @@ const AIChatBot = () => {
           })),
           { role: "user", content: input }
         ],
-        model: "llama-3.3-70b-versatile", // အရမ်းမြန်ပြီး တော်တဲ့ Model ပါ
+        model: "llama-3.3-70b-versatile", 
       });
 
       const botText = chatCompletion.choices[0]?.message?.content || "";
