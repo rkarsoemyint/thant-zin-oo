@@ -16,17 +16,20 @@ import SocialSidebar from "./components/SocialSidebar";
 import KanoteBackground from "./components/KanoteBackground";
 import TechStack from './components/TechStack';
 
-
 function AppContent() {
   const location = useLocation();
 
-  
   const isHideLayout = location.pathname.startsWith('/admin') || location.pathname === '/login';
 
   return (
     <div className="min-h-screen transition-colors duration-500 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
       
-      /* {!isHideLayout && <KanoteBackground />} */
+      {/* 
+        React JSX ရဲ့ မှန်ကန်သော Comment ပိတ်နည်း ဖြစ်ပါတယ်ဗျာ။
+        အောက်ကလိုင်းကို ဖျောက်ထားခြင်းဖြင့် လောလောဆယ် ကနုတ်နောက်ခံကို ခေတ္တ ပိတ်ထားပါတယ် 
+      */}
+      {/* {!isHideLayout && <KanoteBackground />} */}
+      
       {!isHideLayout && <Navbar />}
       {!isHideLayout && <SocialSidebar />}
 
@@ -73,12 +76,10 @@ function AppContent() {
         } />
       </Routes>
 
-     
       {!isHideLayout && <AIChatBot />}
     </div>
   );
 }
-
 
 function App() {
   return (
