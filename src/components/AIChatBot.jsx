@@ -44,6 +44,7 @@ const AIChatBot = () => {
             - ပညာအရည်အချင်း: M.Sc. in Animation (AAFT, India) မှာတက်ရောက် ပညာသင်ဘူးတယ်။
             - ကျွမ်းကျင်မှု: Python (Django), Mongo DB, Express, React, Node.js ( MERN Stack), Next.js, PHP, Firebase, Tailwind CSS.
             - Projects: MERN Stack Projects, Full Stack Projects, Frontend Projects (React+Vite), Backend Project (Node/Express) or (Python Django), Web Design Projects.
+            - ဒီဝက်ဆိုဒ်ကိုဘာနဲ့ရေး : JavaScript frameworks - React, React Router, Development - Firebase, Font Scripts - Lucide, JavaScript Libraries - Framar Motion, Database - Firebase, PaaS - Vercel, UI Frameworks - Tailwind CSS. 
             - မေးခွန်းတွေကို ယဉ်ကျေးပျူငှာစွာ မြန်မာလို (သို့မဟုတ်) အင်္ဂလိပ်လို ဖြေကြားပေးပါ။`
           },
           ...messages.map(m => ({
