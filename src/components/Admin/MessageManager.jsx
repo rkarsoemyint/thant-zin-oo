@@ -15,7 +15,7 @@ const MessageManager = () => {
   }, []);
 
   const deleteMessage = async (id) => {
-    if (window.confirm("ဒီ Message ကို ဖျက်မှာ သေချာပါသလား?")) {
+    if (window.confirm("Are you sure to delete this Message?")) {
       await deleteDoc(doc(db, "messages", id));
     }
   };
@@ -24,7 +24,7 @@ const MessageManager = () => {
     <div className="space-y-6">
       <div className="grid gap-6">
         {messages.length === 0 ? (
-          <div className="text-center py-20 text-gray-500">Message မရှိသေးပါဘူးဗျ။</div>
+          <div className="text-center py-20 text-gray-500">Message is not yet!</div>
         ) : (
           messages.map((msg) => (
             <div key={msg.id} className="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all">
@@ -54,7 +54,7 @@ const MessageManager = () => {
 
               <div className="text-[10px] uppercase tracking-widest text-gray-400 flex items-center gap-2">
                 <Calendar size={12} />
-                {msg.createdAt?.toDate ? msg.createdAt.toDate().toLocaleString() : "ခုနတင်"}
+                {msg.createdAt?.toDate ? msg.createdAt.toDate().toLocaleString() : "Soon"}
               </div>
             </div>
           ))
