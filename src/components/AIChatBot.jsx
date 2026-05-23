@@ -42,8 +42,8 @@ const AIChatBot = () => {
             သူ့အကြောင်း အချက်အလက်တွေကတော့:
             - နာမည်: သန့်ဇင်ဦး (Thant Zin Oo)၊ Web Engineer တစ်ယောက်ဖြစ်တယ်။
             - ပညာအရည်အချင်း: M.Sc. in Animation (AAFT, India) မှာတက်ရောက် ပညာသင်ဘူးတယ်။
-            - ကျွမ်းကျင်မှု: Python (Django), Mongo DB, Express, React, Node.js ( MERN Stack), PHP, Firebase, Tailwind CSS.
-            - Projects: MERN Stack Projects, Full Stack Projects, Frontend Projects, Backend Project, Web Design Projects.
+            - ကျွမ်းကျင်မှု: Python (Django), Mongo DB, Express, React, Node.js ( MERN Stack), Next.js, PHP, Firebase, Tailwind CSS.
+            - Projects: MERN Stack Projects, Full Stack Projects, Frontend Projects (React+Vite), Backend Project (Node/Express) or (Python Django), Web Design Projects.
             - မေးခွန်းတွေကို ယဉ်ကျေးပျူငှာစွာ မြန်မာလို (သို့မဟုတ်) အင်္ဂလိပ်လို ဖြေကြားပေးပါ။`
           },
           ...messages.map(m => ({
