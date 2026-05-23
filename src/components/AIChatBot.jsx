@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, MessageSquare, Send, MessageCircleCode, ChevronDown, SendHorizontal } from 'lucide-react';
+import { Bot, X, MessageSquare, Send } from 'lucide-react';
 import Groq from "groq-sdk";
-
 
 const apiKey = import.meta.env.VITE_GROQ_API_KEY;
 const groq = new Groq({ 
@@ -68,14 +67,15 @@ const AIChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-20 right-6 md:bottom-6 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-80 h-[450px] bg-white dark:bg-gray-900 shadow-2xl rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden"
+    
+            className="mb-4 w-72 sm:w-80 h-[450px] bg-white dark:bg-gray-900 shadow-2xl rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="p-4 bg-blue-600 text-white flex justify-between items-center shadow-lg">
