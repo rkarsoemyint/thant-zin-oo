@@ -20,18 +20,20 @@ const Contact = () => {
     const userName = formData.get('name').trim();
     const userEmail = formData.get('email').trim();
     const userMessage = formData.get('message').trim();
+
+    
     if (userName.length < 3) {
-      alert("ကျေးဇူးပြု၍ နာမည်အမှန် (အနည်းဆုံး ၃ လုံး) ရိုက်ထည့်ပေးပါဗျာ။");
+      alert("Please enter a valid name (at least 3 characters).");
       return;
     }
 
     if (!validateEmail(userEmail)) {
-      alert("Email Format မမှန်ကန်ပါ။ ဥပမာ - example@gmail.com");
+      alert("Invalid email format. Example: example@gmail.com");
       return;
     }
 
     if (userMessage.length < 10) {
-      alert("Message သည် အနည်းဆုံး စာလုံး ၁၀ လုံးခန့် ရှိရပါမယ်ဗျာ။");
+      alert("Message must be at least 10 characters long.");
       return;
     }
 
@@ -54,11 +56,13 @@ const Contact = () => {
         'JUbANX8zcl-N1inTc'
       );
 
-      alert("Message sent successfully! ✅ အစ်ကို့ Admin Hub ရော Gmail ထဲကိုပါ စာရောက်သွားပါပြီ။");
+     
+      alert("Message sent successfully!  It has been delivered to both the Admin Hub and Gmail.");
       form.current.reset(); 
     } catch (error) {
       console.error("Submission Error:", error);
-      alert("Failed to send message. ❌ စနစ်ချို့ယွင်းမှု ဖြစ်နေပါတယ်။");
+      
+      alert("Failed to send message.  A system error occurred.");
     } finally {
       setIsSending(false);
     }
