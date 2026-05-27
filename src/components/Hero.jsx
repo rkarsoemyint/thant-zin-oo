@@ -1,5 +1,5 @@
 import React from 'react';
-import Typewriter from 'writer-effect';
+import Typewriter from 'typewriter-effect';
 import heroImg from '../assets/logo.png';
 import * as Icons from 'lucide-react'; 
 
