@@ -62,28 +62,39 @@ const CV = () => {
               </div>
 
               {/* Contact Section */}
-              <section>
-                <h5 className="text-[11px] uppercase pb-2 mb-4 font-bold tracking-widest text-slate-400 border-b border-slate-800">Contact</h5>
-                <ul className="space-y-3.5 text-xs text-slate-300">
-                  <li className="flex items-start gap-3">
-                    <SafeIcon name="Phone" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
-                    <span>{data?.phone || "09 792460282"}</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <SafeIcon name="Mail" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
-                    <span className="break-all">{data?.email || "tzoo2024@gmail.com"}</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <SafeIcon name="MapPin" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
-                    <span className="leading-relaxed">8-B, Yuzana Garden City, Dagon Seikkan Township, Yangon</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <SafeIcon name="Github" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
-                    <span className="break-all">{data?.github || "github.com/rkarsoemyint"}</span>
-                  </li>
-                </ul>
-              </section>
-
+<section>
+  <h5 className="text-[11px] uppercase pb-2 mb-4 font-bold tracking-widest text-slate-400 border-b border-slate-800">Contact</h5>
+  <ul className="space-y-3.5 text-xs text-slate-300">
+    <li className="flex items-start gap-3">
+      <SafeIcon name="Phone" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
+      <span>{data?.phone || "09 792460282"}</span>
+    </li>
+    <li className="flex items-start gap-3">
+      <SafeIcon name="Mail" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
+      <span className="break-all">{data?.email || "tzoo2024@gmail.com"}</span>
+    </li>
+    <li className="flex items-start gap-3">
+      <SafeIcon name="MapPin" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
+      <span className="leading-relaxed">8-B, Yuzana Garden City, Dagon Seikkan Township, Yangon</span>
+    </li>
+    <li className="flex items-start gap-3">
+      <SafeIcon name="Github" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
+      <span className="break-all">{data?.github || "github.com/rkarsoemyint"}</span>
+    </li>
+    <li className="flex items-start gap-3">
+      <SafeIcon name="Globe" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
+      <a 
+        href="https://thant-zin-oo.vercel.app/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="break-all text-teal-400 hover:underline font-medium"
+      >
+        thant-zin-oo.vercel.app
+      </a>
+    </li>
+  </ul>
+</section>
+             
               {/* Personal Details Section */}
               <section>
                 <h5 className="text-[11px] uppercase pb-2 mb-4 font-bold tracking-widest text-slate-400 border-b border-slate-800">Personal Details</h5>
