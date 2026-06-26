@@ -7,7 +7,7 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [filter, setFilter] = useState('All');
 
-  const categories = ['All', 'Web Design', 'Python', 'React & Node', 'React Native'];
+  const categories = ['All', 'Web Design', 'React & Node', 'Next.js','Python Django','PHP'];
 
   useEffect(() => {
     const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
