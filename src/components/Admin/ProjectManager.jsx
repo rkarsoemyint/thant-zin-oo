@@ -103,10 +103,10 @@ const ProjectManager = () => {
            
             <select className="w-full p-2 bg-gray-900 border border-gray-700 rounded text-white outline-none focus:border-blue-500" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})}>
               <option value="Web Design">Web Design</option>
-              <option value="React & Node">React & Node</option>
+              <option value="React & Node">React & Firebase</option>
               <option value="Next.js">Next.js</option>
               <option value="Python Django">Python Django</option>
-              <option value="PHP">PHP</option>
+              <option value="PHP">MERN Stack</option>
             </select>
           </div>
 
