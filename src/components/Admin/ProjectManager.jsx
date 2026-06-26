@@ -106,7 +106,7 @@ const ProjectManager = () => {
               <option value="React & Node">React & Firebase</option>
               <option value="Next.js">Next.js</option>
               <option value="Python Django">Python Django</option>
-              <option value="PHP">MERN Stack</option>
+              <option value="MERN Stack">MERN Stack</option>
             </select>
           </div>
 
