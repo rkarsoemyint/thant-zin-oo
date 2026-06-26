@@ -9,8 +9,6 @@ const Projects = () => {
 
   const categories = ['All', 'Web Design', 'React & Node', 'Next.js','Python Django','PHP'];
 
-  const categories = ['All', 'Web Design', 'React & Node', 'Next.js', 'React Native'];
-
   useEffect(() => {
     const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
