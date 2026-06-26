@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import * as Icons from 'lucide-react'; // အစ်ကို့ style အတိုင်း ပြောင်းလဲထားပါတယ်
+import * as Icons from 'lucide-react'; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,12 +25,12 @@ const Navbar = () => {
 
   // Navigation Links
   const navItems = [
-    { label: 'About', href: '#about' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Tech', href: '#techstack' },
-    { label: 'CV', href: '#cv' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About', href: '/#about' },
+    { label: 'Skills', href: '/#skills' },
+    { label: 'Projects', href: '/#projects' },
+    { label: 'Tech', href: '/#techstack' },
+    { label: 'CV', href: '/#cv' },
+    { label: 'Contact', href: '/#contact' },
   ];
 
   return (
@@ -48,16 +48,16 @@ const Navbar = () => {
 
       {/* Desktop Navigation (Hidden on Mobile) */}
       <div className="hidden md:flex space-x-8 items-center font-medium">
-        {navItems.map((item) => (
-          <a 
-            key={item.label}
-            href={item.href} 
-            className="relative text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors duration-300 group py-1 text-sm lg:text-base"
-          >
-            {item.label}
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-cyan-400 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-        ))}
+  {navItems.map((item) => (
+    <a 
+      key={item.label}
+      href={item.href} 
+      className="relative text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors duration-300 group py-1 text-sm lg:text-base"
+    >
+      {item.label}
+      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-cyan-400 transition-all duration-300 group-hover:w-full"></span>
+    </a>
+  ))}
         
         {/* Dark Mode Toggle */}
         <button 
@@ -90,19 +90,19 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 py-8 px-8 space-y-6 shadow-2xl animate-in slide-in-from-top duration-300">
-          {navItems.map((item) => (
-            <a 
-              key={item.label} 
-              href={item.href} 
-              onClick={() => setIsOpen(false)}
-              className="block text-xl font-semibold text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors"
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
-      )}
+  <div className="md:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 py-8 px-8 space-y-6 shadow-2xl animate-in slide-in-from-top duration-300">
+    {navItems.map((item) => (
+      <a 
+        key={item.label} 
+        href={item.href} 
+        onClick={() => setIsOpen(false)} 
+        className="block text-xl font-semibold text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors"
+      >
+        {item.label}
+      </a>
+    ))}
+  </div>
+)}
 
     </nav>
   );

@@ -9,7 +9,7 @@ const Footer = () => {
         
         <div className="flex items-center">
           <span className="mx-1">&</span>
-          {/* နှလုံးခုန်နေတဲ့ Animation */}
+          
           <motion.span
             animate={{
               scale: [1, 1.2, 1, 1.2, 1],

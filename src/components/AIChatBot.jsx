@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, MessageSquare, Send, MessageCircleCode, ChevronDown, SendHorizontal } from 'lucide-react';
+import { Bot, X, MessageSquare, Send } from 'lucide-react';
 import Groq from "groq-sdk";
-
 
 const apiKey = import.meta.env.VITE_GROQ_API_KEY;
 const groq = new Groq({ 
@@ -19,7 +18,6 @@ const AIChatBot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef(null);
 
-  // စာရိုက်တိုင်း အောက်ဆုံးကို auto scroll ဆင်းဖို့ပါ
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -42,9 +40,10 @@ const AIChatBot = () => {
             content: `မင်းက Thant Zin Oo ရဲ့ Portfolio အတွက် AI Assistant ဖြစ်တယ်။ 
             သူ့အကြောင်း အချက်အလက်တွေကတော့:
             - နာမည်: သန့်ဇင်ဦး (Thant Zin Oo)၊ Web Engineer တစ်ယောက်ဖြစ်တယ်။
-            - ပညာအရည်အချင်း: M.Sc. in Animation (AAFT, India) ဘွဲ့ရထားတယ်။
-            - ကျွမ်းကျင်မှု: Python (Django), JavaScript (React, Node.js), PHP, Firebase, Tailwind CSS.
-            - Projects: UkeLearn (Ukelele သင်ကြားရေး App), Wallet Flow (PWA Expense Tracker).
+            - ပညာအရည်အချင်း: M.Sc. in Animation (AAFT, India) မှာတက်ရောက် ပညာသင်ဘူးတယ်။
+            - ကျွမ်းကျင်မှု: Python (Django), Mongo DB, Express, React, Node.js ( MERN Stack), Next.js, PHP, Firebase, Tailwind CSS.
+            - Projects: MERN Stack Projects, Full Stack Projects, Frontend Projects (React+Vite), Backend Project (Node/Express) or (Python Django), Web Design Projects.
+            - ဒီဝက်ဆိုဒ်ကိုဘာနဲ့ရေး : JavaScript frameworks - React, React Router, Development - Firebase, Font Scripts - Lucide, JavaScript Libraries - Framar Motion, Database - Firebase, PaaS - Vercel, UI Frameworks - Tailwind CSS. 
             - မေးခွန်းတွေကို ယဉ်ကျေးပျူငှာစွာ မြန်မာလို (သို့မဟုတ်) အင်္ဂလိပ်လို ဖြေကြားပေးပါ။`
           },
           ...messages.map(m => ({
@@ -53,7 +52,7 @@ const AIChatBot = () => {
           })),
           { role: "user", content: input }
         ],
-        model: "llama-3.3-70b-versatile", // အရမ်းမြန်ပြီး တော်တဲ့ Model ပါ
+        model: "llama-3.3-70b-versatile", 
       });
 
       const botText = chatCompletion.choices[0]?.message?.content || "";
@@ -68,14 +67,15 @@ const AIChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-20 right-6 md:bottom-6 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-80 h-[450px] bg-white dark:bg-gray-900 shadow-2xl rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden"
+    
+            className="mb-4 w-72 sm:w-80 h-[450px] bg-white dark:bg-gray-900 shadow-2xl rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="p-4 bg-blue-600 text-white flex justify-between items-center shadow-lg">
