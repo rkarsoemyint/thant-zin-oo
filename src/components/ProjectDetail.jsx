@@ -54,7 +54,8 @@ const ProjectDetail = () => {
         <div className="grid md:grid-cols-3 gap-10">
           <div className="md:col-span-2 space-y-6">
             <h3 className="text-xl font-bold text-blue-600">Project Overview</h3>
-            <p className="leading-relaxed">{project.description}</p>
+            <p className="leading-relaxed whitespace-pre-line text-gray-700 dark:text-gray-300">
+            {project.description}</p>
             
             <h3 className="text-xl font-bold">Technologies:</h3>
             <div className="flex flex-wrap gap-2">
