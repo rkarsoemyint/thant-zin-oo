@@ -10,9 +10,13 @@ const CV = () => {
 
   useEffect(() => {
     const fetchCV = async () => {
-      const docSnap = await getDoc(doc(db, "cv", "main"));
-      if (docSnap.exists()) {
-        setData(docSnap.data());
+      try {
+        const docSnap = await getDoc(doc(db, "cv", "main"));
+        if (docSnap.exists()) {
+          setData(docSnap.data());
+        }
+      } catch (error) {
+        console.error("Error fetching CV data:", error);
       }
     };
     fetchCV();
@@ -29,76 +33,90 @@ const CV = () => {
   };
 
   return (
-    <section id="cv" className="py-20 px-4 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
-      <div className="max-w-[950px] mx-auto">
+    <section id="cv" className="py-12 px-4 bg-slate-100 dark:bg-slate-950 transition-colors duration-300 min-h-screen">
+      <div className="max-w-[980px] mx-auto">
         
-        {/* Print Button */}
-        <div className="flex justify-end mb-6 no-print">
+        {/* Print / Export Action Bar */}
+        <div className="flex justify-between items-center mb-6 no-print bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+          <div>
+            <h1 className="text-lg font-bold text-slate-800 dark:text-white">Curriculum Vitae Preview</h1>
+            <p className="text-xs text-slate-500">Page-optimized for PDF export and printing</p>
+          </div>
           <button 
             onClick={() => handlePrint()}
-            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-8 py-3 rounded-full font-bold shadow-lg transition-all active:scale-95 text-sm"
+            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-2.5 rounded-xl font-bold shadow-md transition-all active:scale-95 text-xs tracking-wide"
           >
-            <SafeIcon name="Printer" size={18} /> SAVE AS PDF
+            <SafeIcon name="Printer" size={16} /> SAVE / PRINT PDF
           </button>
         </div>
 
-        {/* CV Main Container */}
+        {/* Main Document Body */}
         <div 
           ref={componentRef} 
-          className="bg-white text-gray-800 shadow-2xl flex flex-col md:flex-row overflow-hidden min-h-[1120px] rounded-xl border border-gray-100"
+          className="bg-white text-slate-800 shadow-2xl flex flex-col md:flex-row overflow-hidden min-h-[1120px] rounded-2xl border border-slate-200/80"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           
-          {/* Left Column (Modern Cool-Slate Sidebar) */}
-          <div className="md:w-1/3 bg-slate-900 text-slate-100 p-9 flex flex-col justify-between">
-            <div className="space-y-8">
-              {/* Profile Header */}
-              <div className="text-center pb-4 border-b border-slate-800">
-                <div className="w-28 h-28 mx-auto rounded-full border-2 border-teal-500 overflow-hidden mb-4 p-1 bg-slate-800">
-                  <img src="/logo.png" alt="Profile" className="w-full h-full object-cover rounded-full" />
+          {/* Left Sidebar (Dark Cool Slate Theme) */}
+          <div className="md:w-1/3 bg-slate-900 text-slate-100 p-8 flex flex-col justify-between">
+            <div className="space-y-7">
+              
+              {/* Profile Card Header */}
+              <div className="text-center pb-6 border-b border-slate-800">
+                <div className="w-32 h-32 mx-auto rounded-full border-2 border-teal-500/80 p-1 bg-slate-800 shadow-inner mb-4">
+                  <img 
+                    src="/logo.png" 
+                    alt="Thant Zin Oo" 
+                    className="w-full h-full object-cover rounded-full"
+                    onError={(e) => { e.target.src = 'https://via.placeholder.com/150'; }}
+                  />
                 </div>
-                <h2 className="text-2xl font-black tracking-tight uppercase text-white">Thant Zin Oo</h2>
-                <p className="text-teal-400 text-[10px] font-extrabold uppercase tracking-[2.5px] mt-2">Full-Stack Web Engineer</p>
+                <h2 className="text-2xl font-black tracking-tight text-white uppercase">Thant Zin Oo</h2>
+                <p className="text-teal-400 text-[11px] font-extrabold uppercase tracking-[2px] mt-1.5">Full-Stack Web Engineer</p>
               </div>
 
-              {/* Contact Section */}
-<section>
-  <h5 className="text-[11px] uppercase pb-2 mb-4 font-bold tracking-widest text-slate-400 border-b border-slate-800">Contact</h5>
-  <ul className="space-y-3.5 text-xs text-slate-300">
-    <li className="flex items-start gap-3">
-      <SafeIcon name="Phone" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
-      <span>{data?.phone || "09 792460282"}</span>
-    </li>
-    <li className="flex items-start gap-3">
-      <SafeIcon name="Mail" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
-      <span className="break-all">{data?.email || "tzoo2024@gmail.com"}</span>
-    </li>
-    <li className="flex items-start gap-3">
-      <SafeIcon name="MapPin" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
-      <span className="leading-relaxed">8-B, Yuzana Garden City, Dagon Seikkan Township, Yangon</span>
-    </li>
-    <li className="flex items-start gap-3">
-      <SafeIcon name="Github" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
-      <span className="break-all">{data?.github || "github.com/rkarsoemyint"}</span>
-    </li>
-    <li className="flex items-start gap-3">
-      <SafeIcon name="Globe" size={14} className="text-teal-400 mt-0.5 shrink-0"/> 
-      <a 
-        href="https://thant-zin-oo.vercel.app/" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="break-all text-teal-400 hover:underline font-medium"
-      >
-        thant-zin-oo.vercel.app
-      </a>
-    </li>
-  </ul>
-</section>
-             
-              {/* Personal Details Section */}
+              {/* Contact Information */}
               <section>
-                <h5 className="text-[11px] uppercase pb-2 mb-4 font-bold tracking-widest text-slate-400 border-b border-slate-800">Personal Details</h5>
-                <ul className="space-y-2.5 text-xs text-slate-300">
+                <h5 className="text-[11px] uppercase pb-2 mb-3.5 font-extrabold tracking-widest text-teal-400 border-b border-slate-800/80">
+                  Contact
+                </h5>
+                <ul className="space-y-3 text-xs text-slate-300">
+                  <li className="flex items-start gap-3">
+                    <SafeIcon name="Phone" size={14} className="text-teal-400 mt-0.5 shrink-0" /> 
+                    <span>{data?.phone || "09 792460282"}</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <SafeIcon name="Mail" size={14} className="text-teal-400 mt-0.5 shrink-0" /> 
+                    <span className="break-all">{data?.email || "tzoo2024@gmail.com"}</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <SafeIcon name="MapPin" size={14} className="text-teal-400 mt-0.5 shrink-0" /> 
+                    <span className="leading-relaxed">8-B, Yuzana Garden City, Dagon Seikkan Township, Yangon</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <SafeIcon name="Github" size={14} className="text-teal-400 mt-0.5 shrink-0" /> 
+                    <span className="break-all">{data?.github || "github.com/rkarsoemyint"}</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <SafeIcon name="Globe" size={14} className="text-teal-400 mt-0.5 shrink-0" /> 
+                    <a 
+                      href="https://thant-zin-oo.vercel.app/" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="break-all text-teal-400 hover:underline font-medium"
+                    >
+                      thant-zin-oo.vercel.app
+                    </a>
+                  </li>
+                </ul>
+              </section>
+
+              {/* Personal Details */}
+              <section>
+                <h5 className="text-[11px] uppercase pb-2 mb-3 font-extrabold tracking-widest text-teal-400 border-b border-slate-800/80">
+                  Personal Info
+                </h5>
+                <ul className="space-y-2 text-xs text-slate-300">
                   <li className="flex justify-between"><span className="text-slate-500">DOB:</span> <span className="font-medium">12 Jul 1990</span></li>
                   <li className="flex justify-between"><span className="text-slate-500">Gender:</span> <span className="font-medium">Male</span></li>
                   <li className="flex justify-between"><span className="text-slate-500">Marital Status:</span> <span className="font-medium">Single</span></li>
@@ -107,153 +125,190 @@ const CV = () => {
                 </ul>
               </section>
 
-              {/* Education Section */}
+              {/* Languages */}
               <section>
-                <h5 className="text-[11px] uppercase pb-2 mb-4 font-bold tracking-widest text-slate-400 border-b border-slate-800">Education Summary</h5>
-                <div className="space-y-4">
-                  {data?.education?.length > 0 ? (
-                    data.education.map((edu, index) => (
-                      <div key={index} className="space-y-0.5">
-                        <p className="text-xs font-bold text-teal-400">{edu.degree}</p>
-                        <p className="text-[11px] text-slate-400">{edu.school}</p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-[9px] text-slate-500 font-bold tracking-wider">{edu.year}</span>
-                          {edu.status && (
-                            <span className="text-[8px] bg-slate-800 text-amber-400 px-2 py-0.5 rounded-full font-bold border border-slate-700">
-                              {edu.status}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-[11px] text-slate-600 italic">M.Sc. in Animation & Technical Qualifications</div>
-                  )}
+                <h5 className="text-[11px] uppercase pb-2 mb-3 font-extrabold tracking-widest text-teal-400 border-b border-slate-800/80">
+                  Languages
+                </h5>
+                <div className="space-y-2 text-xs text-slate-300">
+                  <div className="flex justify-between"><span>Burmese</span><span className="text-slate-400 font-medium">Native</span></div>
+                  <div className="flex justify-between"><span>Chinese (HSK 5)</span><span className="text-teal-400 font-semibold">Advanced</span></div>
+                  <div className="flex justify-between"><span>English</span><span className="text-slate-400">Intermediate</span></div>
+                  <div className="flex justify-between"><span>Hindi</span><span className="text-slate-400">Basic</span></div>
                 </div>
               </section>
 
-              {/* Languages Section */}
-              <section>
-                <h5 className="text-[11px] uppercase pb-2 mb-4 font-bold tracking-widest text-slate-400 border-b border-slate-800">Languages</h5>
-                <div className="space-y-2 text-xs text-slate-300">
-                  <div className="flex justify-between"><span>Burmese</span><span className="text-slate-500 italic">Native</span></div>
-                  <div className="flex justify-between"><span>English</span><span className="text-slate-500">Intermediate</span></div>
-                  <div className="flex justify-between"><span>Chinese (HSK 5)</span><span className="text-slate-500">Advanced</span></div>
-                  <div className="flex justify-between"><span>Hindi</span><span className="text-slate-500">Basic</span></div>
+              {/* Key Highlights / Awards */}
+              <section className="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50">
+                <div className="flex items-center gap-2 mb-2 text-amber-400 font-bold text-xs">
+                  <SafeIcon name="Award" size={16} /> Key Achievements
                 </div>
+                <ul className="text-[11px] text-slate-300 space-y-1.5 list-disc list-inside">
+                  <li><span className="text-white font-semibold">Best UI/UX & Creative Award</span> in React Project</li>
+                  <li>Grade 'A' in Web Engineering, React & Python Projects</li>
+                </ul>
               </section>
+
             </div>
-            
-            {/* Footer Note */}
+
             <div className="text-[10px] text-slate-600 text-center pt-6 border-t border-slate-800/50">
-              Generated Portfolio CV
+              Verified Professional Portfolio CV
             </div>
           </div>
 
-          {/* Right Column (Clean & Sophisticated Content Body) */}
-          <div className="md:w-2/3 bg-white p-11 flex flex-col justify-between">
-            <div>
+          {/* Right Main Content */}
+          <div className="md:w-2/3 bg-white p-9 flex flex-col justify-between">
+            <div className="space-y-7">
+              
               {/* Career Objective */}
-              <section className="mb-9">
-                <h4 className="text-base font-black uppercase tracking-wider border-b-2 border-teal-500 pb-1.5 mb-3.5 text-slate-900 flex items-center gap-2">
-                  <SafeIcon name="Target" size={16} className="text-teal-600" /> Career Objective
+              <section>
+                <h4 className="text-sm font-black uppercase tracking-wider border-b-2 border-teal-500 pb-1.5 mb-3 text-slate-900 flex items-center gap-2">
+                  <SafeIcon name="Target" size={18} className="text-teal-600" /> Career Objective
                 </h4>
-                <p className="text-xs leading-relaxed text-gray-600 text-justify font-medium">
-                  {data?.objective || "Passionate and detail-oriented Full-Stack Web Engineer with a robust capability in crafting efficient frontend interfaces and scalable backend solutions. Proficient in the MERN Stack, Next.js, and modern PHP/Python ecosystems. Dedicated to implementing clean code architecture and seamless user experiences while continuously learning and adaptive to state-of-the-art technologies."}
+                <p className="text-xs leading-relaxed text-slate-600 text-justify font-medium">
+                  {data?.objective || "Passionate and detail-oriented Full-Stack Web Engineer with comprehensive hands-on experience in modern JavaScript (React, Next.js, Node.js), Python (Django), and PHP frameworks. Proven expertise in building clean UI/UX components, designing responsive web/mobile web applications, and implementing backend database architectures. Dedicated to clean code, performance optimization, and scalable solutions."}
                 </p>
               </section>
 
-              {/* Technical Skills (ခွဲခြားပြင်ဆင်ပြီးသား Skills Section) */}
-              <section className="mb-9">
-                <h4 className="text-base font-black uppercase tracking-wider border-b-2 border-teal-500 pb-1.5 mb-4 text-slate-900 flex items-center gap-2">
-                  <SafeIcon name="Cpu" size={16} className="text-teal-600" /> Technical Skills
+              {/* Technical Skills Categorized */}
+              <section>
+                <h4 className="text-sm font-black uppercase tracking-wider border-b-2 border-teal-500 pb-1.5 mb-3.5 text-slate-900 flex items-center gap-2">
+                  <SafeIcon name="Cpu" size={18} className="text-teal-600" /> Technical Skills
                 </h4>
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <span className="font-bold text-slate-800 block mb-1.5">Frontend & UI/UX:</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['React.js', 'Next.js', 'JavaScript (ES6+)', 'Tailwind CSS', 'Bootstrap', 'HTML5/CSS3', 'jQuery', 'Vite', 'Responsive Web Design'].map(skill => (
+                        <span key={skill} className="bg-teal-50 text-teal-800 px-2.5 py-0.5 rounded text-[11px] font-semibold border border-teal-100">{skill}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="font-bold text-slate-800 block mb-1.5">Backend & Frameworks:</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['Python', 'Django Framework', 'PHP', 'Node.js', 'Express.js', 'Java OOP', 'C++'].map(skill => (
+                        <span key={skill} className="bg-slate-100 text-slate-800 px-2.5 py-0.5 rounded text-[11px] font-semibold border border-slate-200">{skill}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="font-bold text-slate-800 block mb-1.5">Databases, Tools & Deployment:</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['MySQL / PyMySQL', 'SQLite3', 'Firebase', 'GitHub / Git', 'VPS Management', 'cPanel & Domain', 'Odoo ERP System', 'SEO & SEM', 'WordPress Dev'].map(skill => (
+                        <span key={skill} className="bg-slate-50 text-slate-700 px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200">{skill}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Certifications & Qualifications */}
+              <section>
+                <h4 className="text-sm font-black uppercase tracking-wider border-b-2 border-teal-500 pb-1.5 mb-4 text-slate-900 flex items-center gap-2">
+                  <SafeIcon name="Award" size={18} className="text-teal-600" /> Certified Education & Training
+                </h4>
+
                 <div className="space-y-4">
-                  {/* Full-Stack Ecosystem */}
-                  <div>
-                    <h6 className="text-[10px] font-extrabold text-teal-600 mb-2 uppercase tracking-wider">Full-Stack Ecosystem</h6>
-                    <div className="flex flex-wrap gap-1.5">
-                      {['MERN Stack', 'Next.js (React)', 'Firebase'].map(skill => (
-                        <span key={skill} className="bg-teal-50 text-teal-700 px-2.5 py-1 rounded text-[11px] font-bold border border-teal-100/70">{skill}</span>
-                      ))}
+                  
+                  {/* Web Engineer Course Graduation */}
+                  <div className="relative pl-4 border-l-2 border-teal-500">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h6 className="font-bold text-xs text-slate-900">Web Engineer Course (Complete Graduation)</h6>
+                        <p className="text-[11px] text-teal-700 font-medium">Page Myanmar & Cosmo Seven (Singapore)</p>
+                      </div>
+                      <span className="text-[9px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded font-extrabold">Jul 2026</span>
+                    </div>
+                    <p className="text-[11px] text-slate-600 mt-1">
+                      Graduated from the full Web Engineering Program covering PHP, Python Web App Development, MERN Stack, and On-Job Training.
+                    </p>
+                  </div>
+
+                  {/* React Developer Course */}
+                  <div className="relative pl-4 border-l-2 border-teal-500">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h6 className="font-bold text-xs text-slate-900 flex items-center gap-1.5">
+                          React Developer Course 
+                          <span className="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Grade A</span>
+                          <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">🏆 Best UI/UX Award</span>
+                        </h6>
+                        <p className="text-[11px] text-slate-500 font-medium">Page Myanmar & Cosmo Seven</p>
+                      </div>
+                      <span className="text-[9px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold">Jul 2026</span>
                     </div>
                   </div>
 
-                  {/* Frontend Architecture */}
-                  <div>
-                    <h6 className="text-[10px] font-extrabold text-slate-500 mb-2 uppercase tracking-wider">Frontend Development</h6>
-                    <div className="flex flex-wrap gap-1.5">
-                      {['HTML5 / CSS3', 'JavaScript (ES6+)', 'Tailwind CSS', 'Bootstrap', 'jQuery', 'Vite'].map(skill => (
-                        <span key={skill} className="bg-slate-50 text-slate-700 px-2.5 py-1 rounded text-[11px] font-semibold border border-slate-200/60">{skill}</span>
-                      ))}
+                  {/* Python Developer Course & OJT Recommendation */}
+                  <div className="relative pl-4 border-l-2 border-teal-500">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h6 className="font-bold text-xs text-slate-900 flex items-center gap-1.5">
+                          Python Developer Course & Module 2 OJT
+                          <span className="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Grade A</span>
+                        </h6>
+                        <p className="text-[11px] text-slate-500 font-medium">Page Myanmar & Cosmo Seven</p>
+                      </div>
+                      <span className="text-[9px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold">May 2026</span>
+                    </div>
+                    <p className="text-[10px] text-slate-500 mt-1">
+                      <span className="font-semibold text-slate-700">Practiced:</span> C++, Python, Java OOP, Django Framework, PyMySQL, SQLite3, VPS Management, Django API & Odoo ERP.
+                    </p>
+                  </div>
+
+                  {/* Professional Web Developer 2 */}
+                  <div className="relative pl-4 border-l-2 border-slate-300">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h6 className="font-bold text-xs text-slate-900">Professional Web Developer - 2</h6>
+                        <p className="text-[11px] text-slate-500 font-medium">Fairway Technology</p>
+                      </div>
+                      <span className="text-[9px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold">Mar 2026</span>
                     </div>
                   </div>
 
-                  {/* Backend & Databases */}
-                  <div>
-                    <h6 className="text-[10px] font-extrabold text-slate-500 mb-2 uppercase tracking-wider">Backend & Databases</h6>
-                    <div className="flex flex-wrap gap-1.5">
-                      {['PHP', 'Python (Django)', 'MySQL', 'Node.js', 'Express.js'].map(skill => (
-                        <span key={skill} className="bg-slate-50 text-slate-700 px-2.5 py-1 rounded text-[11px] font-semibold border border-slate-200/60">{skill}</span>
-                      ))}
+                  {/* Web App Design & Professional Web Dev 1 */}
+                  <div className="relative pl-4 border-l-2 border-slate-300">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h6 className="font-bold text-xs text-slate-900 flex items-center gap-1.5">
+                          Web App Design & Professional Web Developer (PHP)
+                          <span className="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Grade A</span>
+                        </h6>
+                        <p className="text-[11px] text-slate-500 font-medium">Page Myanmar & Cosmo Seven</p>
+                      </div>
+                      <span className="text-[9px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold">Nov - Dec 2025</span>
                     </div>
+                    <p className="text-[10px] text-slate-500 mt-1">
+                      <span className="font-semibold text-slate-700">Practiced:</span> HTML5, CSS3, Core PHP, MySQL, jQuery, Bootstrap, WordPress Plugin/Theme Development, SEO/SEM & cPanel.
+                    </p>
                   </div>
+
                 </div>
               </section>
 
-              {/* Professional Training */}
-              <section className="mb-9">
-                <h4 className="text-base font-black uppercase tracking-wider border-b-2 border-teal-500 pb-1.5 mb-4 text-slate-900 flex items-center gap-2">
-                  <SafeIcon name="Award" size={16} className="text-teal-600" /> Professional Training
-                </h4>
-                <div className="space-y-5">
-                  <div className="relative pl-5 border-l border-slate-200">
-                    <div className="absolute w-2 h-2 bg-teal-500 rounded-full -left-[4.5px] top-1.5"></div>
-                    <div className="flex justify-between items-start mb-0.5">
-                      <h6 className="font-bold text-xs text-slate-900">Professional Web Developer - 2</h6>
-                      <span className="text-[9px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-bold border border-emerald-100">Mar 2026</span>
-                    </div>
-                    <p className="text-[11px] text-gray-500 font-medium">Fairway Technology</p>
-                  </div>
-
-                  <div className="relative pl-5 border-l border-slate-200">
-                    <div className="absolute w-2 h-2 bg-teal-500 rounded-full -left-[4.5px] top-1.5"></div>
-                    <div className="flex justify-between items-start mb-0.5">
-                      <h6 className="font-bold text-xs text-slate-900">Web Engineer Course</h6>
-                      <span className="text-[9px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded font-bold border border-amber-100">Ongoing</span>
-                    </div>
-                    <p className="text-[11px] text-gray-500 font-medium mb-2.5">Joint Program: Page Myanmar & Cosmo Seven (Singapore)</p>
-                    
-                    {/* Module Details */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      <div className="bg-slate-50 p-2.5 rounded border-l-2 border-teal-500">
-                        <p className="text-[11px] font-bold text-slate-800">Module 1 & 2 (Grade A)</p>
-                        <p className="text-[10px] text-gray-500 mt-0.5 leading-normal">Full-stack integration, Core PHP, MySQL architecture, and Django Ecosystem.</p>
-                      </div>
-                      <div className="bg-slate-50 p-2.5 rounded border-l-2 border-slate-300">
-                        <p className="text-[11px] font-bold text-slate-700">Module 3: Mobile Apps</p>
-                        <p className="text-[10px] text-gray-500 mt-0.5 leading-normal">Cross-platform development utilizing React Native with ES6+ syntax.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
             </div>
 
-            {/* References */}
-            <section className="pt-2">
-              <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">References</h4>
+            {/* References Section */}
+            <section className="pt-4 border-t border-slate-100 mt-4">
+              <h4 className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2.5">References</h4>
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-2.5 border border-gray-100 rounded bg-slate-50/50">
-                  <p className="text-[11px] font-bold text-slate-800">Fairway Technology</p>
-                  <p className="text-[10px] text-gray-500 mt-0.5">Tel: 09 252 426 388</p>
+                <div className="p-2.5 border border-slate-100 rounded-lg bg-slate-50/60">
+                  <p className="text-[11px] font-bold text-slate-800">Page Myanmar & Cosmo Seven</p>
+                  <p className="text-[10px] text-slate-500 mt-0.5">Times City, Level-4, Yangon</p>
+                  <p className="text-[10px] text-teal-700 font-semibold mt-0.5">Tel: +95 9 254 343 133</p>
                 </div>
-                <div className="p-2.5 border border-gray-100 rounded bg-slate-50/50">
-                  <p className="text-[11px] font-bold text-slate-800">Page Myanmar</p>
-                  <p className="text-[10px] text-gray-500 mt-0.5">Tel: +95 9443666912</p>
+                <div className="p-2.5 border border-slate-100 rounded-lg bg-slate-50/60">
+                  <p className="text-[11px] font-bold text-slate-800">Fairway Technology</p>
+                  <p className="text-[10px] text-slate-500 mt-0.5">Yangon, Myanmar</p>
+                  <p className="text-[10px] text-teal-700 font-semibold mt-0.5">Tel: 09 252 426 388</p>
                 </div>
               </div>
             </section>
+
           </div>
 
         </div>
