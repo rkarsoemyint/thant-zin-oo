@@ -6,20 +6,28 @@ import * as Icons from 'lucide-react';
 
 const CV = () => {
   const [data, setData] = useState(null);
+  const [educationData, setEducationData] = useState(null);
   const componentRef = useRef();
 
   useEffect(() => {
-    const fetchCV = async () => {
+    const fetchCVAndAbout = async () => {
       try {
-        const docSnap = await getDoc(doc(db, "cv", "main"));
-        if (docSnap.exists()) {
-          setData(docSnap.data());
+        // Fetch CV Data
+        const cvSnap = await getDoc(doc(db, "cv", "main"));
+        if (cvSnap.exists()) {
+          setData(cvSnap.data());
+        }
+
+        // Fetch About Data (for Education & Studies fallback/sync)
+        const aboutSnap = await getDoc(doc(db, "about", "info"));
+        if (aboutSnap.exists()) {
+          setEducationData(aboutSnap.data()?.education || null);
         }
       } catch (error) {
-        console.error("Error fetching CV data:", error);
+        console.error("Error fetching CV/About data:", error);
       }
     };
-    fetchCV();
+    fetchCVAndAbout();
   }, []);
 
   const handlePrint = useReactToPrint({
@@ -31,6 +39,9 @@ const CV = () => {
     const IconComponent = Icons[name] || Icons['Circle'];
     return <IconComponent size={size} className={className} />;
   };
+
+  // Get raw education text from CV doc or fallback to About doc
+  const rawEducation = data?.education || educationData;
 
   return (
     <section id="cv" className="py-10 px-4 bg-slate-50 min-h-screen text-slate-800 font-sans">
@@ -167,6 +178,30 @@ const CV = () => {
                 </p>
               </section>
 
+              {/* Education & Academic Studies (About ထဲက Education ကို ပါ၀င်အောင် ချိတ်ဆက်ထားသည်) */}
+              <section>
+                <h4 className="text-xs font-black uppercase tracking-wider border-b-2 border-teal-600 pb-1 mb-3 text-slate-900 flex items-center gap-2">
+                  <SafeIcon name="GraduationCap" size={16} className="text-teal-600" /> Education & Academic Background
+                </h4>
+                <div className="space-y-2.5 text-xs">
+                  {rawEducation ? (
+                    rawEducation.split('|').map((eduItem, idx) => (
+                      <div key={idx} className="relative pl-3.5 border-l-2 border-teal-600/40">
+                        <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                          {eduItem.trim()}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="relative pl-3.5 border-l-2 border-teal-600/40">
+                      <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                        Diploma & Technical Training in Web Engineering & Computer Science Concepts.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </section>
+
               {/* Technical Stack */}
               <section>
                 <h4 className="text-xs font-black uppercase tracking-wider border-b-2 border-teal-600 pb-1 mb-3 text-slate-900 flex items-center gap-2">
@@ -176,7 +211,7 @@ const CV = () => {
                   <div>
                     <span className="font-bold text-slate-800 block mb-1">Frontend Engineering & UI/UX:</span>
                     <div className="flex flex-wrap gap-1.5">
-                      {['React.js', 'Next.js', 'JavaScript (ES6+)', 'Tailwind CSS', 'Bootstrap', 'HTML5/CSS3', 'Vite', 'Responsive & Mobile-First Design'].map(skill => (
+                      {['React.js', 'Next.js', 'JavaScript (ES6+)', 'Tailwind CSS', 'Bootstrap', 'HTML5/CSS3', 'Vite', 'Responsive Design'].map(skill => (
                         <span key={skill} className="bg-slate-100 text-slate-800 px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200">{skill}</span>
                       ))}
                     </div>
@@ -185,7 +220,7 @@ const CV = () => {
                   <div>
                     <span className="font-bold text-slate-800 block mb-1">Backend & API Integration:</span>
                     <div className="flex flex-wrap gap-1.5">
-                      {['Python / Django', 'Node.js / Express', 'PHP', 'RESTful APIs', 'Authentication & OAuth', 'Object-Oriented Programming (OOP)'].map(skill => (
+                      {['Python / Django', 'Node.js / Express', 'PHP', 'RESTful APIs', 'Authentication & OAuth'].map(skill => (
                         <span key={skill} className="bg-teal-50 text-teal-800 px-2 py-0.5 rounded text-[11px] font-semibold border border-teal-100">{skill}</span>
                       ))}
                     </div>
@@ -194,7 +229,7 @@ const CV = () => {
                   <div>
                     <span className="font-bold text-slate-800 block mb-1">Database, Cloud & Tools:</span>
                     <div className="flex flex-wrap gap-1.5">
-                      {['MySQL', 'PostgreSQL', 'SQLite', 'Firebase / Cloud Firestore', 'Git / GitHub', 'VPS & cPanel', 'Vercel / Cloud Deployment'].map(skill => (
+                      {['MySQL', 'PostgreSQL', 'SQLite', 'Firebase / Cloud Firestore', 'Git / GitHub', 'VPS & cPanel', 'Vercel'].map(skill => (
                         <span key={skill} className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200">{skill}</span>
                       ))}
                     </div>
@@ -292,7 +327,6 @@ const CV = () => {
             </section>
 
           </div>
-
         </div>
       </div>
     </section>
