@@ -178,30 +178,47 @@ const CV = () => {
                 </p>
               </section>
 
-              {/* Education & Academic Studies (About ထဲက Education ကို ပါ၀င်အောင် ချိတ်ဆက်ထားသည်) */}
-              <section>
-                <h4 className="text-xs font-black uppercase tracking-wider border-b-2 border-teal-600 pb-1 mb-3 text-slate-900 flex items-center gap-2">
-                  <SafeIcon name="GraduationCap" size={16} className="text-teal-600" /> Education & Academic Background
-                </h4>
-                <div className="space-y-2.5 text-xs">
-                  {rawEducation ? (
-                    rawEducation.split('|').map((eduItem, idx) => (
-                      <div key={idx} className="relative pl-3.5 border-l-2 border-teal-600/40">
-                        <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                          {eduItem.trim()}
-                        </p>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="relative pl-3.5 border-l-2 border-teal-600/40">
-                      <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                        Diploma & Technical Training in Web Engineering & Computer Science Concepts.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </section>
+              {/* Education & Academic Background */}
+<section>
+  <h4 className="text-xs font-black uppercase tracking-wider border-b-2 border-teal-600 pb-1 mb-3 text-slate-900 flex items-center gap-2">
+    <SafeIcon name="GraduationCap" size={16} className="text-teal-600" /> Education & Academic Background
+  </h4>
+  <div className="space-y-2.5 text-xs">
+    {(() => {
+     
+      if (Array.isArray(rawEducation)) {
+        return rawEducation.map((eduItem, idx) => (
+          <div key={idx} className="relative pl-3.5 border-l-2 border-teal-600/40">
+            <p className="text-xs text-slate-700 leading-relaxed font-medium">
+              {typeof eduItem === 'object' ? JSON.stringify(eduItem) : String(eduItem)}
+            </p>
+          </div>
+        ));
+      }
 
+     
+      if (typeof rawEducation === 'string' && rawEducation.trim().length > 0) {
+        return rawEducation.split('|').map((eduItem, idx) => (
+          <div key={idx} className="relative pl-3.5 border-l-2 border-teal-600/40">
+            <p className="text-xs text-slate-700 leading-relaxed font-medium">
+              {eduItem.trim()}
+            </p>
+          </div>
+        ));
+      }
+
+      
+      return (
+        <div className="relative pl-3.5 border-l-2 border-teal-600/40">
+          <p className="text-xs text-slate-700 leading-relaxed font-medium">
+            Diploma & Technical Training in Web Engineering & Computer Science Concepts.
+          </p>
+        </div>
+      );
+    })()}
+  </div>
+</section>
+              
               {/* Technical Stack */}
               <section>
                 <h4 className="text-xs font-black uppercase tracking-wider border-b-2 border-teal-600 pb-1 mb-3 text-slate-900 flex items-center gap-2">
