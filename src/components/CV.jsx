@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -54,7 +54,7 @@ const CV = () => {
           </div>
           <button 
             onClick={() => handlePrint()}
-            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs tracking-wide"
+            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs tracking-wide cursor-pointer"
           >
             <SafeIcon name="Printer" size={16} /> SAVE / PRINT PDF
           </button>
@@ -66,6 +66,7 @@ const CV = () => {
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           
+          {/* Left Sidebar */}
           <div className="md:w-1/3 bg-slate-50/80 p-7 border-r border-slate-200 flex flex-col justify-between">
             <div className="space-y-6">
               
@@ -174,8 +175,75 @@ const CV = () => {
                 </p>
               </section>
 
-import * as Icons from 'lucide-react'
-                           
+              {/* Education & Academic Background */}
+              <section>
+                <h4 className="text-xs font-black uppercase tracking-wider border-b-2 border-teal-600 pb-1 mb-3 text-slate-900 flex items-center gap-2">
+                  <SafeIcon name="GraduationCap" size={16} className="text-teal-600" /> Education & Academic Background
+                </h4>
+                <div className="space-y-3 text-xs">
+                  {(() => {
+                    if (Array.isArray(rawEducation)) {
+                      return rawEducation.map((eduItem, idx) => {
+                        if (typeof eduItem === 'object' && eduItem !== null) {
+                          return (
+                            <div key={idx} className="relative pl-3.5 border-l-2 border-teal-600">
+                              <div className="flex justify-between items-start">
+                                <div>
+                                  <h6 className="font-bold text-xs text-slate-900">
+                                    {eduItem.degree || eduItem.title || 'Degree / Course'}
+                                  </h6>
+                                  <p className="text-[11px] text-slate-600 font-medium">
+                                    {eduItem.school || eduItem.institution || ''}
+                                  </p>
+                                </div>
+                                <div className="text-right">
+                                  {eduItem.year && (
+                                    <span className="text-[10px] text-slate-400 font-medium block">
+                                      {eduItem.year}
+                                    </span>
+                                  )}
+                                  {eduItem.status && (
+                                    <span className="text-[9px] bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-semibold inline-block mt-0.5">
+                                      {eduItem.status}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <div key={idx} className="relative pl-3.5 border-l-2 border-teal-600/40">
+                            <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                              {String(eduItem)}
+                            </p>
+                          </div>
+                        );
+                      });
+                    }
+
+                    if (typeof rawEducation === 'string' && rawEducation.trim().length > 0) {
+                      return rawEducation.split('|').map((eduItem, idx) => (
+                        <div key={idx} className="relative pl-3.5 border-l-2 border-teal-600/40">
+                          <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                            {eduItem.trim()}
+                          </p>
+                        </div>
+                      ));
+                    }
+
+                    return (
+                      <div className="relative pl-3.5 border-l-2 border-teal-600/40">
+                        <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                          Diploma & Technical Training in Web Engineering & Computer Science Concepts.
+                        </p>
+                      </div>
+                    );
+                  })()}
+                </div>
+              </section>
+
               {/* Technical Stack */}
               <section>
                 <h4 className="text-xs font-black uppercase tracking-wider border-b-2 border-teal-600 pb-1 mb-3 text-slate-900 flex items-center gap-2">
