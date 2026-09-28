@@ -129,8 +129,9 @@ const CV = () => {
                 </h5>
                 <div className="space-y-1.5 text-xs text-slate-600">
                   <div className="flex justify-between"><span>Burmese</span><span className="text-slate-500 font-medium">Native</span></div>
-                  <div className="flex justify-between"><span>Chinese (HSK 5)</span><span className="text-teal-700 font-bold">Advanced</span></div>
-                  <div className="flex justify-between"><span>English</span><span className="text-slate-500">Professional</span></div>
+                  <div className="flex justify-between"><span>Chinese </span><span className="text-teal-700 font-medium">Basic</span></div>
+                  <div className="flex justify-between"><span>Hindi </span><span className="text-teal-700 font-medium">Basic</span></div>
+                  <div className="flex justify-between"><span>English</span><span className="text-slate-500 font-medium">Upper Intermediate</span></div>
                 </div>
               </section>
 
