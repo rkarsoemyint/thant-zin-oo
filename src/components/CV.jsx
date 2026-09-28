@@ -40,7 +40,6 @@ const CV = () => {
     return <IconComponent size={size} className={className} />;
   };
 
-  // Get raw education text from CV doc or fallback to About doc
   const rawEducation = data?.education || educationData;
 
   return (
@@ -61,18 +60,15 @@ const CV = () => {
           </button>
         </div>
 
-        {/* Main Resume Sheet */}
         <div 
           ref={componentRef} 
           className="bg-white shadow-xl flex flex-col md:flex-row overflow-hidden min-h-[1100px] rounded-xl border border-slate-200"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           
-          {/* Left Column (Light Slate Background) */}
           <div className="md:w-1/3 bg-slate-50/80 p-7 border-r border-slate-200 flex flex-col justify-between">
             <div className="space-y-6">
               
-              {/* Profile Card Header */}
               <div className="text-center pb-5 border-b border-slate-200">
                 <div className="w-28 h-28 mx-auto rounded-full border-2 border-teal-600 p-1 bg-white shadow-sm mb-3">
                   <img 
@@ -178,47 +174,8 @@ const CV = () => {
                 </p>
               </section>
 
-              {/* Education & Academic Background */}
-<section>
-  <h4 className="text-xs font-black uppercase tracking-wider border-b-2 border-teal-600 pb-1 mb-3 text-slate-900 flex items-center gap-2">
-    <SafeIcon name="GraduationCap" size={16} className="text-teal-600" /> Education & Academic Background
-  </h4>
-  <div className="space-y-2.5 text-xs">
-    {(() => {
-     
-      if (Array.isArray(rawEducation)) {
-        return rawEducation.map((eduItem, idx) => (
-          <div key={idx} className="relative pl-3.5 border-l-2 border-teal-600/40">
-            <p className="text-xs text-slate-700 leading-relaxed font-medium">
-              {typeof eduItem === 'object' ? JSON.stringify(eduItem) : String(eduItem)}
-            </p>
-          </div>
-        ));
-      }
-
-     
-      if (typeof rawEducation === 'string' && rawEducation.trim().length > 0) {
-        return rawEducation.split('|').map((eduItem, idx) => (
-          <div key={idx} className="relative pl-3.5 border-l-2 border-teal-600/40">
-            <p className="text-xs text-slate-700 leading-relaxed font-medium">
-              {eduItem.trim()}
-            </p>
-          </div>
-        ));
-      }
-
-      
-      return (
-        <div className="relative pl-3.5 border-l-2 border-teal-600/40">
-          <p className="text-xs text-slate-700 leading-relaxed font-medium">
-            Diploma & Technical Training in Web Engineering & Computer Science Concepts.
-          </p>
-        </div>
-      );
-    })()}
-  </div>
-</section>
-              
+import * as Icons from 'lucide-react'
+                           
               {/* Technical Stack */}
               <section>
                 <h4 className="text-xs font-black uppercase tracking-wider border-b-2 border-teal-600 pb-1 mb-3 text-slate-900 flex items-center gap-2">
